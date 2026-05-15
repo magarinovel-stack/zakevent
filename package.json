@@ -13,7 +13,8 @@
     "lint": "tsc --noEmit",
     "lint:ds": "node scripts/lint-design-system.mjs",
     "test": "vitest run",
-    "db:migrate": "tsx scripts/db-migrate.ts"
+    "db:migrate": "tsx scripts/db-migrate.ts",
+    "verify-integration": "tsx scripts/verify-integration.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

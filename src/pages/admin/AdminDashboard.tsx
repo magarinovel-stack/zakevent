@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useTranslation } from "react-i18next";
+import { monitoringService } from "@/services/monitoringService";
 
 export default function AdminDashboard() {
   return (
@@ -77,7 +78,7 @@ function Overview() {
           totalCommissions,
         });
       } catch (err) {
-        console.error("Failed to fetch admin stats:", err);
+        monitoringService.captureError(err, { context: "admin_stats_fetch" });
       } finally {
         setLoading(false);
       }

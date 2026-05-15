@@ -293,7 +293,7 @@ export default function HomePage() {
   );
 }
 
-function ProviderCard({ provider }: { provider: any }) {
+function ProviderCard({ provider }: { provider: ProviderProfile }) {
   const coverUrl = provider.portfolio_urls?.[0] || "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=1000&auto=format&fit=crop";
 
   return (

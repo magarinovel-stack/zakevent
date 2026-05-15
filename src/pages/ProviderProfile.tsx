@@ -222,7 +222,7 @@ export default function ProviderProfile() {
               </TabsContent>
 
               <TabsContent value="prices" className="space-y-8 m-0 outline-none">
-                {packages.length > 0 ? packages.map((pkg: any) => (
+                {packages.length > 0 ? packages.map((pkg: ServicePackage) => (
                   <Card key={pkg.id} className={cn("rounded-[var(--radius-xl)] border-2 transition-all p-8", "border-[var(--color-border)]")}>
                     <div className="flex flex-col md:flex-row justify-between gap-6">
                       <div className="space-y-4">

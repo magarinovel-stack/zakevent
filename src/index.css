@@ -169,10 +169,58 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   RTL SUPPORT
+   RTL SUPPORT — Directional utilities for Arabic layout
    ═══════════════════════════════════════════════════════════════ */
 [dir="rtl"] {
   text-align: right;
+}
+
+@layer utilities {
+  /* Margin start/end (logical properties) */
+  .ms-auto { margin-inline-start: auto; }
+  .me-auto { margin-inline-end: auto; }
+  .ms-1 { margin-inline-start: 0.25rem; }
+  .ms-2 { margin-inline-start: 0.5rem; }
+  .ms-3 { margin-inline-start: 0.75rem; }
+  .ms-4 { margin-inline-start: 1rem; }
+  .me-1 { margin-inline-end: 0.25rem; }
+  .me-2 { margin-inline-end: 0.5rem; }
+  .me-3 { margin-inline-end: 0.75rem; }
+  .me-4 { margin-inline-end: 1rem; }
+
+  /* Padding start/end (logical properties) */
+  .ps-2 { padding-inline-start: 0.5rem; }
+  .ps-4 { padding-inline-start: 1rem; }
+  .ps-6 { padding-inline-start: 1.5rem; }
+  .pe-2 { padding-inline-end: 0.5rem; }
+  .pe-4 { padding-inline-end: 1rem; }
+  .pe-6 { padding-inline-end: 1.5rem; }
+
+  /* Flex direction flip */
+  [dir="rtl"] .rtl\:flex-row-reverse { flex-direction: row-reverse; }
+  [dir="rtl"] .rtl\:space-x-reverse > :not(:last-child) { margin-right: 0; margin-left: var(--tw-space-x-reverse-amount, 0.5rem); }
+
+  /* Text alignment */
+  .text-start { text-align: start; }
+  .text-end { text-align: end; }
+
+  /* Border radius logical */
+  .rounded-s-lg { border-start-start-radius: var(--radius-lg); border-end-start-radius: var(--radius-lg); }
+  .rounded-e-lg { border-start-end-radius: var(--radius-lg); border-end-end-radius: var(--radius-lg); }
+
+  /* Inset logical */
+  .start-0 { inset-inline-start: 0; }
+  .end-0 { inset-inline-end: 0; }
+  .start-4 { inset-inline-start: 1rem; }
+  .end-4 { inset-inline-end: 1rem; }
+
+  /* RTL icon flip */
+  [dir="rtl"] .rtl\:rotate-180 { transform: rotate(180deg); }
+  [dir="rtl"] .rtl\:-scale-x-100 { transform: scaleX(-1); }
+
+  /* Float logical */
+  .float-start { float: inline-start; }
+  .float-end { float: inline-end; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
