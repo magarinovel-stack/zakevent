@@ -373,20 +373,9 @@ async function startServer() {
     } catch (err) { logger.error({ err }, "Booking creation failed"); res.status(500).json({ error: "Échec de la réservation" }); }
   });
 
-  // TODO: MVP-2 — AI budget optimization will integrate Gemini API
-  // MVP-1: Returns static allocation percentages (40% venue, 25% catering, etc.)
-  // Do not remove — placeholder for post-launch enhancement
-  app.post("/api/ai/optimize-budget", requireAuth, async (req, res) => {
-    if (!flags.aiOptimization) return res.status(503).json({ error: "Fonctionnalité désactivée" });
-    const { totalBudget, guests, category } = req.body;
-    if (!totalBudget || !guests || !category) return res.status(400).json({ error: "Paramètres manquants" });
-
-    const fallback: BudgetResult = {
-      salle: totalBudget * 0.40, traiteur: totalBudget * 0.25,
-      media: totalBudget * 0.15, decoration: totalBudget * 0.10, musique: totalBudget * 0.05,
-      buffer: totalBudget * 0.05,
-    };
-    res.json(fallback);
+  // AI Budget Optimization — disabled for MVP, will integrate Gemini API post-launch
+  app.post("/api/ai/optimize-budget", requireAuth, async (_req, res) => {
+    res.status(200).json({ enabled: false, message: "Coming soon — AI budget optimization will be available in a future release." });
   });
 
   // Soft Delete
