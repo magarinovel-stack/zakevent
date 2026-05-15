@@ -56,7 +56,8 @@ export default function DisputesPage() {
     setSubmitting(true);
     try {
       const token = (await supabase.auth.getSession()).data.session?.access_token;
-      const res = await fetch("/api/disputes/create", {
+      const { api } = await import('@/lib/api');
+      const res = await api("/api/disputes/create", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({

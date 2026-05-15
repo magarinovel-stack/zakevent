@@ -1,6 +1,8 @@
+import { api } from '@/lib/api';
+
 export const aiService = {
   async optimizeBudget(totalBudget: number, guests: number, category: string) {
-    const res = await fetch("/api/ai/optimize-budget", {
+    const res = await api("/api/ai/optimize-budget", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ totalBudget, guests, category }),

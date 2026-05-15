@@ -186,6 +186,14 @@ CREATE TABLE idempotency_keys (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
+-- CSRF Tokens (database-backed for multi-instance support)
+CREATE TABLE csrf_tokens (
+  token TEXT PRIMARY KEY,
+  expires_at TIMESTAMPTZ NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+CREATE INDEX idx_csrf_tokens_expires ON csrf_tokens(expires_at);
+
 -- Feature Flags
 CREATE TABLE feature_flags (
   name TEXT PRIMARY KEY,

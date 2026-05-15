@@ -124,7 +124,8 @@ export default function SearchPage() {
         maxPrice: priceRange[1].toString()
       });
 
-      const response = await fetch(`/api/search?${params.toString()}`);
+      const { api } = await import('@/lib/api');
+      const response = await api(`/api/search?${params.toString()}`);
       if (!response.ok) throw new Error('Search failed');
       const data: SearchResponse = await response.json();
       setProviders(data.results);
@@ -249,12 +250,12 @@ export default function SearchPage() {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    onClick={handleAiOptimize}
-                    disabled={isAiLoading}
-                    className="h-6 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-[var(--radius-sm)] text-[9px] font-bold uppercase tracking-widest"
+                    disabled
+                    title="Coming soon"
+                    className="h-6 text-[var(--color-muted)] rounded-[var(--radius-sm)] text-[9px] font-bold uppercase tracking-widest opacity-50 cursor-not-allowed"
                   >
-                    <BrainCircuit className={cn("w-3 h-3 mr-1.5", isAiLoading && "animate-pulse")} />
-                    {isAiLoading ? "Analyse..." : "Optimiser par IA"}
+                    <BrainCircuit className="w-3 h-3 mr-1.5" />
+                    Bientôt
                   </Button>
                 </div>
                 <Slider 

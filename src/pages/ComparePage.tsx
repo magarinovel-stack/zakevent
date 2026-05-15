@@ -15,10 +15,12 @@ export default function ComparePage() {
 
   useEffect(() => {
     if (ids.length === 0) return;
-    fetch(`/api/search?ids=${ids.join(",")}`)
-      .then(r => r.json())
-      .then(d => setProviders(d.results?.slice(0, 3) || []))
-      .catch(() => {});
+    import('@/lib/api').then(({ api }) =>
+      api(`/api/search?ids=${ids.join(",")}`)
+        .then(r => r.json())
+        .then(d => setProviders(d.results?.slice(0, 3) || []))
+        .catch(() => {})
+    );
   }, [searchParams]);
 
   return (

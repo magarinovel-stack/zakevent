@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
-    "build": "vite build && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
-    "start": "node dist/server.cjs",
+    "build": "vite build",
+    "build:server": "esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist-server/server.cjs",
+    "start": "node dist-server/server.cjs",
     "perfection-verify": "npm run lint && echo '✅ ALL SYSTEMS NOMINAL: ENTERPRISE GRADE ACHIEVED'",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "lint:ds": "node scripts/lint-design-system.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "db:migrate": "tsx scripts/db-migrate.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",

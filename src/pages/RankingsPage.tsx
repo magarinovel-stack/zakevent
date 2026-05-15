@@ -15,10 +15,12 @@ export default function RankingsPage() {
   const [providers, setProviders] = useState<ProviderProfile[]>([]);
 
   useEffect(() => {
-    fetch(`/api/search?category=${category}&city=${city}`)
-      .then(r => r.json())
-      .then(d => setProviders((d.results || []).slice(0, 10)))
-      .catch(() => {});
+    import('@/lib/api').then(({ api }) =>
+      api(`/api/search?category=${category}&city=${city}`)
+        .then(r => r.json())
+        .then(d => setProviders((d.results || []).slice(0, 10)))
+        .catch(() => {})
+    );
   }, [category, city]);
 
   const RankIcon = ({ rank }: { rank: number }) => {

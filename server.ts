@@ -198,10 +198,10 @@ async function startServer() {
 
   // CORS whitelist
   app.use(cors({
-    origin: [FRONTEND_URL, "http://localhost:3000", "http://localhost:5173", "https://pay.chargily.net"],
+    origin: [FRONTEND_URL, process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "", "http://localhost:3000", "http://localhost:5173", "https://pay.chargily.net"].filter(Boolean),
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization", "X-Idempotency-Key", "X-Request-Id"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Idempotency-Key", "X-Request-Id", "X-CSRF-Token"],
   }));
 
   // CSP nonce
@@ -267,21 +267,26 @@ async function startServer() {
 
   // --- Routes ---
 
-  // CSRF token
-  const csrfTokens = new Map<string, number>();
-  app.get("/api/csrf-token", (_req, res) => {
+  // CSRF token (database-backed for multi-instance support)
+  app.get("/api/csrf-token", async (_req, res) => {
     const token = crypto.randomBytes(32).toString("hex");
-    csrfTokens.set(token, Date.now() + 3600_000);
+    const expiresAt = new Date(Date.now() + 3600_000).toISOString();
+    await supabase.from("csrf_tokens").insert({ token, expires_at: expiresAt });
     res.json({ csrfToken: token });
   });
 
   function validateCsrf(req: express.Request, res: express.Response, next: express.NextFunction) {
     const token = req.headers["x-csrf-token"] as string;
-    if (!token || !csrfTokens.has(token)) return res.status(403).json({ error: "CSRF token invalide" });
-    const expiry = csrfTokens.get(token)!;
-    if (Date.now() > expiry) { csrfTokens.delete(token); return res.status(403).json({ error: "CSRF token expiré" }); }
-    csrfTokens.delete(token);
-    next();
+    if (!token) return res.status(403).json({ error: "CSRF token invalide" });
+    supabase.from("csrf_tokens").select("token, expires_at").eq("token", token).single().then(({ data, error }) => {
+      if (error || !data) return res.status(403).json({ error: "CSRF token invalide" });
+      if (new Date(data.expires_at) < new Date()) {
+        supabase.from("csrf_tokens").delete().eq("token", token).then(() => {});
+        return res.status(403).json({ error: "CSRF token expiré" });
+      }
+      supabase.from("csrf_tokens").delete().eq("token", token).then(() => {});
+      next();
+    });
   }
 
   // Health check
@@ -440,7 +445,7 @@ async function startServer() {
   });
 
   // Webhook: Chargily (transactional update)
-  app.post("/api/webhooks/chargily", (req, res) => {
+  app.post("/api/webhooks/chargily", async (req, res) => {
     const signature = req.headers["chargily-signature"] as string;
     const body = Buffer.isBuffer(req.body) ? req.body : Buffer.from(JSON.stringify(req.body));
 
@@ -458,15 +463,20 @@ async function startServer() {
     const event: WebhookEvent = JSON.parse(body.toString());
     logger.info({ type: event.type, id: event.id }, "Webhook verified");
 
-    // Transactional update via RPC
+    // Transactional update via RPC — await to ensure persistence before ack
     if (event.data?.metadata?.bookingId) {
       const bookingId = sanitizeEntityId(event.data.metadata.bookingId);
       if (bookingId) {
-        supabase.rpc("update_booking_payment", {
+        const { error } = await supabase.rpc("update_booking_payment", {
           p_booking_id: bookingId,
           p_payment_status: event.type === "checkout.paid" ? "HELD" : "FAILED",
           p_transaction_id: event.data.id || "",
-        }).then(({ error }) => { if (error) { logger.error({ error }, "Webhook DB update failed"); metrics.errors++; } });
+        });
+        if (error) {
+          logger.error({ error, bookingId }, "Webhook DB update failed");
+          metrics.errors++;
+          return res.status(500).json({ error: "Database write failed" });
+        }
       }
     }
 
@@ -590,18 +600,18 @@ async function startServer() {
     } catch (err) { logger.error({ err }, "Reminder cron failed"); }
   });
 
-  // Vite / Static serving
+  // Cron: Cleanup expired CSRF tokens
+  cron.schedule("0 */6 * * *", async () => {
+    try {
+      await supabase.from("csrf_tokens").delete().lt("expires_at", new Date().toISOString());
+      logger.info("CRON: Expired CSRF tokens cleaned");
+    } catch (err) { logger.error({ err }, "CSRF cleanup cron failed"); }
+  });
+
+  // Vite / Static serving (dev only — production frontend is on Vercel)
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({ server: { middlewareMode: true }, appType: "spa" });
     app.use(vite.middlewares);
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (_req, res) => {
-      const fs = require("fs");
-      const html = fs.readFileSync(path.join(distPath, "index.html"), "utf-8");
-      res.send(html.replace(/<script/g, `<script nonce="${res.locals.cspNonce}"`));
-    });
   }
 
   const server = app.listen(PORT, "0.0.0.0", () => logger.info(`Server on http://0.0.0.0:${PORT}`));

@@ -40,7 +40,8 @@ export default function OnboardingPage() {
     setSubmitting(true);
     try {
       const token = (await supabase.auth.getSession()).data.session?.access_token;
-      const res = await fetch("/api/providers/onboarding/complete", {
+      const { api } = await import('@/lib/api');
+      const res = await api("/api/providers/onboarding/complete", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({

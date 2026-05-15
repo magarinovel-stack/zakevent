@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: zakevents-api
+    runtime: node
+    buildCommand: npm install && npm run build:server
+    startCommand: npm run start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CHARGILY_SECRET_KEY
+        sync: false
+      - key: CHARGILY_WEBHOOK_SECRET
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
+      - key: FRONTEND_URL
+        sync: false

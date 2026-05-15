@@ -62,7 +62,7 @@ export const radii = {
 
 export const typography = {
   display: '"Playfair Display", serif',
-  body: '"DM Sans", sans-serif',
+  body: '"Plus Jakarta Sans", sans-serif',
   arabic: '"Cairo", sans-serif',
   mono: '"JetBrains Mono", monospace',
 } as const;
