@@ -1,0 +1,97 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+i18n.use(LanguageDetector).use(initReactI18next).init({
+  fallbackLng: 'fr',
+  interpolation: { escapeValue: false },
+  resources: {
+    fr: { translation: {
+      nav: { home: "Accueil", providers: "Prestataires", planner: "Smart Planner", howItWorks: "Concept", login: "Connexion", register: "Inscription", dashboard: "Tableau de bord", logout: "Déconnexion" },
+      hero: { title: "L'excellence pour vos événements en Algérie", title_part1: "Sublimez l'", title_part2: "exception.", subtitle: "La première plateforme de prestataires d'exception en Algérie.", tagline: "L'Excellence Algérienne", searchBtn: "Découvrir les talents", plannerBtn: "Utiliser l'IA Planner" },
+      search: { placeholder: "Que cherchez-vous ?", category: "Catégorie", allCategories: "Toutes les catégories", city: "Ville", allCities: "Toute l'Algérie", budget: "Budget maximum", filterBtn: "Filtrer", clearBtn: "Réinitialiser", allFilters: "Tous les filtres", activeFilters: "Filtres actifs", ratingStars: "Étoiles", submit: "Rechercher", noResults: "Aucun prestataire ne correspond à vos critères.", budgetOptimized: "Budget optimisé grâce à l'IA ZAKEVENTS !", aiOptimizeFailed: "Échec de l'optimisation IA", fetchError: "Erreur lors du chargement des résultats", resultsCount: "{{count}} résultat(s) trouvé(s)", sortBy: "Trier par", sortRelevance: "Inspiration", sortRating: "Notation", sortPriceAsc: "Budget croissant", sortPriceDesc: "Exclusivité (Prix +)" },
+      booking: { date: "Date de l'événement", time: "Heure", guests: "Nombre d'invités", capacityAlert: "Dépasse la capacité maximale", summary: "Récapitulatif", basePrice: "Base", serviceFee: "Frais de service (10%)", total: "Total", bookBtn: "Réserver", respondMsg: "Le prestataire a 24h pour accepter", escrowMsg: "Votre paiement est sécurisé et gardé en séquestre.", cancelPolicy: "Annulation gratuite jusqu'à 48h avant l'événement." },
+      stats: { heritage: "Héritage", title_part1: "Une sélection ", title_part2: "curatée", title_part3: " avec soin.", desc: "Nous parcourons l'Algérie pour dénicher les talents qui feront battre le cœur de vos événements.", providersLabel: "Prestataires Authentifiés", satisfactionLabel: "Taux de Satisfaction" },
+      categories: { exploration: "Exploration", title: "Catégories de Services", desc: "Parcourez nos catégories sélectionnées pour trouver les talents qui correspondent à votre vision.", serviceTag: "Services" },
+      planner: { ai_tag: "Intelligence Artificielle", teaser_title_part1: "Laissez-nous ", teaser_title_part2: "composer", teaser_title_part3: " votre événement.", teaser_desc: "Notre moteur intelligent analyse votre vision et sélectionne les prestataires parfaits.", launchBtn: "Lancer le planificateur AI" },
+      featured: { tagline: "Talents Sélectionnés", title_part1: "La crème de l'", title_part2: "Algérie.", desc: "Chaque partenaire est rigoureusement sélectionné pour son excellence.", verifiedLabel: "Identité Vérifiée", secureLabel: "Sécurisé", paymentLabel: "Paiement Garanti" },
+      providers: { selection: "Sélection", featuredTitle: "Prestataires en vedette", viewAll: "Voir tout le catalogue →" },
+      seo: { homeTitle: "ZAKEVENTS | Le Marketplace d'Exception en Algérie", homeDesc: "Découvrez les meilleurs prestataires pour vos mariages et événements en Algérie." },
+      auth: { loginTitle: "Bon retour parmi nous", registerTitle: "Commencer l'aventure", asClient: "Je suis un client", asProvider: "Je suis un prestataire", email: "Adresse email", password: "Mot de passe", submitLogin: "Se connecter", submitRegister: "Créer mon compte", forgotPassword: "Mot de passe oublié ?", noAccount: "Pas encore de compte ?", hasAccount: "Déjà membre ?" },
+      dashboard: { overview: "Aperçu", bookings: "Réservations", messages: "Messages", settings: "Paramètres", pending: "En attente", confirmed: "Confirmé", completed: "Terminé", cancelled: "Annulé" },
+      common: { save: "Enregistrer", cancel: "Annuler", delete: "Supprimer", loading: "Chargement...", book: "Réserver", error: "Une erreur est survenue", success: "Opération réussie", from: "Dès", da: "DA", perEvent: "par événement", back: "Retour", next: "Suivant", submit: "Envoyer", close: "Fermer", viewAll: "Voir tout", noData: "Aucune donnée" },
+      errorBoundary: { title: "Quelque chose s'est mal passé", description: "Une erreur inattendue est survenue.", reload: "Recharger" },
+      admin: { totalUsers: "Total Utilisateurs", activeProviders: "Prestataires Actifs", totalRevenue: "CA Total (DA)", commissions: "Commissions (DA)", pendingApplications: "Candidatures en attente", approve: "Approuver", reject: "Rejeter" },
+      // Toast messages
+      toast: { budgetOptimized: "Budget optimisé avec succès !", budgetOptimizeFailed: "Échec de l'optimisation du budget", bookingSuccess: "Réservation confirmée !", bookingFailed: "Échec de la réservation", loginSuccess: "Connexion réussie", loginFailed: "Identifiants incorrects", registerSuccess: "Compte créé avec succès", profileUpdated: "Profil mis à jour", messageSent: "Message envoyé", reviewSubmitted: "Avis publié avec succès", disputeFiled: "Litige déposé", paymentSuccess: "Paiement effectué", paymentFailed: "Échec du paiement" },
+      // New pages
+      pages: {
+        compare: { title: "Comparer les prestataires", subtitle: "Comparez jusqu'à 3 prestataires côte à côte", rating: "Note", price: "Prix min.", responseTime: "Temps de réponse", hours: "heures", packages: "Forfaits", noSelection: "Sélectionnez des prestataires à comparer", addProvider: "Ajouter un prestataire" },
+        timeline: { title: "Chronologie de l'événement", status: "Statut", created: "Créé", confirmed: "Confirmé", completed: "Terminé", noEvents: "Aucun événement dans la chronologie" },
+        onboarding: { title: "Configuration de votre profil", step1: "Informations", step2: "Services", step3: "Photos", step4: "Disponibilités", step5: "Vérification", businessName: "Nom commercial", category: "Catégorie", cities: "Villes desservies", description: "Description", uploadPhotos: "Télécharger des photos", setAvailability: "Définir vos disponibilités", reviewInfo: "Vérifiez vos informations", finish: "Terminer l'inscription", saved: "Progression sauvegardée" },
+        disputes: { title: "Centre de litiges", fileDispute: "Déposer un litige", reason: "Motif du litige", evidence: "Preuves (URLs)", status: "Statut", open: "Ouvert", inReview: "En examen", resolved: "Résolu", rejected: "Rejeté", noDisputes: "Aucun litige en cours", resolution: "Résolution", bookingId: "ID de la réservation", pending: "En attente" },
+        gallery: { title: "Inspiration", subtitle: "Découvrez les plus beaux événements en Algérie", filterCity: "Filtrer par ville", filterType: "Filtrer par type", allCities: "Toutes les villes", allTypes: "Tous les types" },
+        calculator: { title: "Calculateur de budget", subtitle: "Estimez le coût total de votre événement", guests: "Nombre d'invités", city: "Ville", eventType: "Type d'événement", services: "Services souhaités", estimate: "Estimation totale", disclaimer: "Estimation indicative basée sur les prix moyens du marché" },
+        rankings: { title: "Classements", subtitle: "Les meilleurs prestataires par catégorie", topIn: "Top {{category}} à {{city}}", rank: "#{{rank}}", viewProfile: "Voir le profil" },
+        campaigns: { title: "Promotions", validUntil: "Valable jusqu'au {{date}}", discount: "-{{percent}}%", originalPrice: "Prix original", promoPrice: "Prix promo", bookNow: "Réserver maintenant", expired: "Offre expirée" },
+      },
+      // Components
+      components: {
+        availabilityCalendar: { title: "Disponibilités", available: "Disponible", blocked: "Bloqué", booked: "Réservé", legend: "Légende" },
+        bookingTimeline: { pending: "En attente de confirmation", confirmed: "Confirmé par le prestataire", paid: "Paiement sécurisé", completed: "Événement terminé", released: "Paiement libéré" },
+        priceBreakdown: { package: "Forfait", commission: "Commission plateforme (10%)", total: "Total à payer", currency: "DA" },
+        reviewInput: { placeholder: "Notez votre expérience", stars: "{{count}} étoile(s)" },
+        locationPicker: { placeholder: "Sélectionner une ville", search: "Rechercher une ville..." },
+        notifications: { title: "Notifications", markAllRead: "Tout marquer comme lu", empty: "Aucune notification", newBooking: "Nouvelle réservation", bookingConfirmed: "Réservation confirmée", newMessage: "Nouveau message", paymentReceived: "Paiement reçu" },
+        languageSwitcher: { fr: "Français", ar: "العربية" },
+      },
+      validation: { required: "Ce champ est requis", email: "Email invalide", minLength: "Minimum {{min}} caractères", maxLength: "Maximum {{max}} caractères", phone: "Numéro de téléphone invalide (+213...)", positiveNumber: "Doit être un nombre positif" },
+      profile: { settingsTitle: "Paramètres du Profil", settingsSubtitle: "Gérez vos informations personnelles et votre identité.", photo: "Photo de Profil", photoFormat: "Format recommandé : JPG ou PNG. Max 2MB.", generalInfo: "Informations Générales", fullName: "Nom complet", businessName: "Nom commercial", phone: "Téléphone", city: "Ville", bio: "Bio / Description", bioPlaceholder: "Parlez-nous de vous...", bioHint: "Une brève description qui apparaîtra sur votre profil." },
+      calculator: { services: { salle: "Salle des fêtes", traiteur: "Traiteur", photographe: "Photographe", decoration: "Décoration", musique: "Musique / DJ", beaute: "Beauté" } },
+      errors: { network: "Erreur réseau. Vérifiez votre connexion.", unauthorized: "Session expirée. Reconnectez-vous.", notFound: "Page introuvable", serverError: "Erreur serveur. Réessayez plus tard.", forbidden: "Accès non autorisé" },
+    }},
+    ar: { translation: {
+      nav: { home: "الرئيسية", providers: "المزودين", planner: "المخطط الذكي", howItWorks: "كيف يعمل", login: "دخول", register: "تسجيل", dashboard: "لوحة التحكم", logout: "خروج" },
+      hero: { title: "التميز لمناسباتكم في الجزائر", title_part1: "ارتقِ بـ ", title_part2: "الاستثناء.", subtitle: "أول منصة لمزودي الخدمات الاستثنائيين في الجزائر.", tagline: "التميز الجزائري", searchBtn: "اكتشف المواهب", plannerBtn: "استخدم المخطط الذكي" },
+      search: { placeholder: "عن ماذا تبحث؟", category: "الفئة", allCategories: "جميع الفئات", city: "المدينة", allCities: "كل الجزائر", budget: "الميزانية القصوى", filterBtn: "تصفية", clearBtn: "إعادة تعيين", allFilters: "كل الفلاتر", activeFilters: "الفلاتر النشطة", ratingStars: "نجوم", submit: "بحث", noResults: "لا يوجد مزودون يطابقون معاييرك.", budgetOptimized: "تم تحسين الميزانية بنجاح!", aiOptimizeFailed: "فشل تحسين الميزانية", fetchError: "خطأ في تحميل النتائج", resultsCount: "{{count}} نتيجة", sortBy: "ترتيب حسب", sortRelevance: "الأكثر صلة", sortRating: "التقييم", sortPriceAsc: "السعر تصاعدي", sortPriceDesc: "السعر تنازلي" },
+      booking: { date: "تاريخ المناسبة", time: "الوقت", guests: "عدد الضيوف", capacityAlert: "يتجاوز السعة القصوى", summary: "ملخص", basePrice: "الأساسي", serviceFee: "رسوم الخدمة (10%)", total: "الإجمالي", bookBtn: "احجز الآن", respondMsg: "مزود الخدمة لديه 24 ساعة للقبول", escrowMsg: "دفعك مؤمن ومحفوظ.", cancelPolicy: "إلغاء مجاني حتى 48 ساعة قبل المناسبة." },
+      stats: { heritage: "تراث", title_part1: "اختيار ", title_part2: "منسق", title_part3: " بعناية.", desc: "نجوب الجزائر للبحث عن المواهب.", providersLabel: "مزودون معتمدون", satisfactionLabel: "معدل الرضا" },
+      categories: { exploration: "استكشاف", title: "فئات الخدمات", desc: "تصفح فئاتنا المختارة.", serviceTag: "خدمات" },
+      planner: { ai_tag: "الذكاء الاصطناعي", teaser_title_part1: "دعونا ", teaser_title_part2: "نؤلف", teaser_title_part3: " مناسبتكم.", teaser_desc: "محركنا الذكي يحلل رؤيتك ويختار أفضل المزودين.", launchBtn: "ابدأ المخطط الذكي" },
+      featured: { tagline: "مواهب مختارة", title_part1: "نخبة ", title_part2: "الجزائر.", desc: "يتم اختيار كل شريك بدقة لتميزه.", verifiedLabel: "هوية موثقة", secureLabel: "آمن", paymentLabel: "دفع مضمون" },
+      providers: { selection: "اختيار", featuredTitle: "مزودون متميزون", viewAll: "عرض الكتالوج ←" },
+      seo: { homeTitle: "ZAKEVENTS | المنصة الاستثنائية في الجزائر", homeDesc: "اكتشف أفضل مزودي الخدمات في الجزائر." },
+      auth: { loginTitle: "مرحباً بعودتك", registerTitle: "ابدأ المغامرة", asClient: "أنا زبون", asProvider: "أنا مزود خدمة", email: "البريد الإلكتروني", password: "كلمة المرور", submitLogin: "تسجيل الدخول", submitRegister: "إنشاء حسابي", forgotPassword: "نسيت كلمة المرور؟", noAccount: "ليس لديك حساب؟", hasAccount: "لديك حساب بالفعل؟" },
+      dashboard: { overview: "نظرة عامة", bookings: "الحجوزات", messages: "الرسائل", settings: "الإعدادات", pending: "قيد الانتظار", confirmed: "مؤكد", completed: "مكتمل", cancelled: "ملغى" },
+      common: { save: "حفظ", cancel: "إلغاء", delete: "حذف", loading: "جاري التحميل...", book: "احجز", error: "حدث خطأ", success: "تمت العملية بنجاح", from: "ابتداءً من", da: "دج", perEvent: "لكل مناسبة", back: "رجوع", next: "التالي", submit: "إرسال", close: "إغلاق", viewAll: "عرض الكل", noData: "لا توجد بيانات" },
+      errorBoundary: { title: "حدث خطأ", description: "حدث خطأ غير متوقع.", reload: "إعادة تحميل" },
+      admin: { totalUsers: "إجمالي المستخدمين", activeProviders: "المزودون النشطون", totalRevenue: "إجمالي الإيرادات (دج)", commissions: "العمولات (دج)", pendingApplications: "الطلبات المعلقة", approve: "قبول", reject: "رفض" },
+      toast: { budgetOptimized: "تم تحسين الميزانية!", budgetOptimizeFailed: "فشل تحسين الميزانية", bookingSuccess: "تم تأكيد الحجز!", bookingFailed: "فشل الحجز", loginSuccess: "تم تسجيل الدخول", loginFailed: "بيانات غير صحيحة", registerSuccess: "تم إنشاء الحساب", profileUpdated: "تم تحديث الملف", messageSent: "تم إرسال الرسالة", reviewSubmitted: "تم نشر التقييم", disputeFiled: "تم تقديم النزاع", paymentSuccess: "تم الدفع", paymentFailed: "فشل الدفع" },
+      pages: {
+        compare: { title: "مقارنة المزودين", subtitle: "قارن حتى 3 مزودين جنباً إلى جنب", rating: "التقييم", price: "السعر الأدنى", responseTime: "وقت الاستجابة", hours: "ساعات", packages: "الباقات", noSelection: "اختر مزودين للمقارنة", addProvider: "إضافة مزود" },
+        timeline: { title: "الجدول الزمني", status: "الحالة", created: "تم الإنشاء", confirmed: "مؤكد", completed: "مكتمل", noEvents: "لا توجد أحداث" },
+        onboarding: { title: "إعداد ملفك", step1: "المعلومات", step2: "الخدمات", step3: "الصور", step4: "التوفر", step5: "المراجعة", businessName: "الاسم التجاري", category: "الفئة", cities: "المدن", description: "الوصف", uploadPhotos: "رفع الصور", setAvailability: "تحديد التوفر", reviewInfo: "راجع معلوماتك", finish: "إنهاء التسجيل", saved: "تم حفظ التقدم" },
+        disputes: { title: "مركز النزاعات", fileDispute: "تقديم نزاع", reason: "سبب النزاع", evidence: "الأدلة", status: "الحالة", open: "مفتوح", inReview: "قيد المراجعة", resolved: "تم الحل", rejected: "مرفوض", noDisputes: "لا توجد نزاعات", resolution: "القرار", bookingId: "رقم الحجز", pending: "قيد الانتظار" },
+        gallery: { title: "إلهام", subtitle: "اكتشف أجمل المناسبات في الجزائر", filterCity: "تصفية حسب المدينة", filterType: "تصفية حسب النوع", allCities: "كل المدن", allTypes: "كل الأنواع" },
+        calculator: { title: "حاسبة الميزانية", subtitle: "قدّر التكلفة الإجمالية لمناسبتك", guests: "عدد الضيوف", city: "المدينة", eventType: "نوع المناسبة", services: "الخدمات المطلوبة", estimate: "التقدير الإجمالي", disclaimer: "تقدير تقريبي بناءً على متوسط أسعار السوق" },
+        rankings: { title: "التصنيفات", subtitle: "أفضل المزودين حسب الفئة", topIn: "أفضل {{category}} في {{city}}", rank: "#{{rank}}", viewProfile: "عرض الملف" },
+        campaigns: { title: "العروض", validUntil: "صالح حتى {{date}}", discount: "-{{percent}}%", originalPrice: "السعر الأصلي", promoPrice: "سعر العرض", bookNow: "احجز الآن", expired: "انتهى العرض" },
+      },
+      components: {
+        availabilityCalendar: { title: "التوفر", available: "متاح", blocked: "محجوب", booked: "محجوز", legend: "دليل" },
+        bookingTimeline: { pending: "في انتظار التأكيد", confirmed: "تم التأكيد", paid: "تم الدفع", completed: "اكتمل الحدث", released: "تم تحرير الدفع" },
+        priceBreakdown: { package: "الباقة", commission: "عمولة المنصة (10%)", total: "الإجمالي", currency: "دج" },
+        reviewInput: { placeholder: "قيّم تجربتك", stars: "{{count}} نجمة" },
+        locationPicker: { placeholder: "اختر مدينة", search: "ابحث عن مدينة..." },
+        notifications: { title: "الإشعارات", markAllRead: "تحديد الكل كمقروء", empty: "لا توجد إشعارات", newBooking: "حجز جديد", bookingConfirmed: "تم تأكيد الحجز", newMessage: "رسالة جديدة", paymentReceived: "تم استلام الدفع" },
+        languageSwitcher: { fr: "Français", ar: "العربية" },
+      },
+      validation: { required: "هذا الحقل مطلوب", email: "بريد إلكتروني غير صالح", minLength: "الحد الأدنى {{min}} أحرف", maxLength: "الحد الأقصى {{max}} أحرف", phone: "رقم هاتف غير صالح (+213...)", positiveNumber: "يجب أن يكون رقماً موجباً" },
+      profile: { settingsTitle: "إعدادات الملف الشخصي", settingsSubtitle: "إدارة معلوماتك الشخصية وهويتك.", photo: "صورة الملف", photoFormat: "الصيغة الموصى بها: JPG أو PNG. الحد الأقصى 2 ميغابايت.", generalInfo: "المعلومات العامة", fullName: "الاسم الكامل", businessName: "الاسم التجاري", phone: "الهاتف", city: "المدينة", bio: "السيرة / الوصف", bioPlaceholder: "أخبرنا عن نفسك...", bioHint: "وصف مختصر سيظهر في ملفك الشخصي." },
+      calculator: { services: { salle: "قاعة الأفراح", traiteur: "خدمة الطعام", photographe: "المصور", decoration: "الديكور", musique: "الموسيقى / DJ", beaute: "التجميل" } },
+      errors: { network: "خطأ في الشبكة. تحقق من اتصالك.", unauthorized: "انتهت الجلسة. أعد تسجيل الدخول.", notFound: "الصفحة غير موجودة", serverError: "خطأ في الخادم. حاول لاحقاً.", forbidden: "غير مصرح" },
+    }},
+  },
+});
+
+export default i18n;
